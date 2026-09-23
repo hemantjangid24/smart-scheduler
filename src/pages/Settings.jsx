@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ShieldCheck, Users, BookUser, School } from "lucide-react";
 import PageHeader from "../components/ui/PageHeader";
 import { Card, CardHeader } from "../components/ui/Card";
@@ -15,24 +15,33 @@ const ROLE_OPTIONS = [
   { role: ROLES.ADMIN, icon: ShieldCheck },
 ];
 
-const TABS = ["Profile", "Availability", "Notifications", "Demo role"];
-
 export default function Settings() {
   const { user, role, switchRole } = useAuth();
   const { showToast } = useToast();
   const [tab, setTab] = useState("Profile");
+
+  const tabs = useMemo(() => {
+    const base = ["Profile"];
+    if (role === ROLES.FACULTY) base.push("Availability");
+    base.push("Notifications", "Demo role");
+    return base;
+  }, [role]);
+
+  // If a role switch removes the current tab (e.g. leaving Faculty while on
+  // Availability), fall back to Profile rather than rendering nothing.
+  const activeTab = tabs.includes(tab) ? tab : "Profile";
 
   return (
     <div className="space-y-6">
       <PageHeader eyebrow="System" title="Settings" description="Manage your profile, availability, and notification preferences." />
 
       <div className="flex gap-1 border-b border-line">
-        {TABS.map((t) => (
+        {tabs.map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className={`px-3.5 py-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
-              tab === t ? "border-ink text-ink" : "border-transparent text-slate-400 hover:text-ink"
+              activeTab === t ? "border-ink text-ink" : "border-transparent text-slate-400 hover:text-ink"
             }`}
           >
             {t}
@@ -40,7 +49,7 @@ export default function Settings() {
         ))}
       </div>
 
-      {tab === "Profile" && (
+      {activeTab === "Profile" && (
         <Card className="max-w-xl">
           <CardHeader title="Profile information" />
           <div className="space-y-4">
@@ -61,7 +70,7 @@ export default function Settings() {
         </Card>
       )}
 
-      {tab === "Availability" && (
+      {activeTab === "Availability" && (
         <Card className="max-w-xl">
           <CardHeader title="Availability & preferred slots" subtitle="Used by CP-SAT feasibility checks and rescheduling proposals." />
           <div className="space-y-4">
@@ -84,7 +93,7 @@ export default function Settings() {
         </Card>
       )}
 
-      {tab === "Notifications" && (
+      {activeTab === "Notifications" && (
         <Card className="max-w-xl">
           <CardHeader title="Notification preferences" />
           <div className="space-y-3">
@@ -99,7 +108,7 @@ export default function Settings() {
         </Card>
       )}
 
-      {tab === "Demo role" && (
+      {activeTab === "Demo role" && (
         <Card className="max-w-xl">
           <CardHeader title="Switch demo role" subtitle="This is a frontend-only setting for exploring role-based views." />
           <div className="grid grid-cols-2 gap-2">
