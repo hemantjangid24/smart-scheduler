@@ -103,7 +103,7 @@ function AppRoutes() {
         <Route
           path="/sections"
           element={
-            <RequireRole roles={[ROLES.COORDINATOR, ROLES.ADMIN]}>
+            <RequireRole roles={[ROLES.COORDINATOR]}>
               <Sections />
             </RequireRole>
           }
@@ -111,7 +111,7 @@ function AppRoutes() {
         <Route
           path="/faculty"
           element={
-            <RequireRole roles={[ROLES.COORDINATOR, ROLES.ADMIN]}>
+            <RequireRole roles={[ROLES.COORDINATOR]}>
               <FacultyPage />
             </RequireRole>
           }
@@ -119,7 +119,7 @@ function AppRoutes() {
         <Route
           path="/courses"
           element={
-            <RequireRole roles={[ROLES.COORDINATOR, ROLES.ADMIN]}>
+            <RequireRole roles={[ROLES.COORDINATOR]}>
               <Courses />
             </RequireRole>
           }
@@ -127,7 +127,7 @@ function AppRoutes() {
         <Route
           path="/resources"
           element={
-            <RequireRole roles={[ROLES.COORDINATOR, ROLES.ADMIN]}>
+            <RequireRole roles={[ROLES.COORDINATOR]}>
               <Resources />
             </RequireRole>
           }

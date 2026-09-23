@@ -37,10 +37,10 @@ export const navSections = [
   {
     label: "Academic Data",
     items: [
-      { to: "/sections", label: "Sections & Sub-Batches", icon: Layers, roles: [ROLES.COORDINATOR, ROLES.ADMIN] },
-      { to: "/faculty", label: "Faculty", icon: Users, roles: [ROLES.COORDINATOR, ROLES.ADMIN] },
-      { to: "/courses", label: "Courses", icon: BookOpen, roles: [ROLES.COORDINATOR, ROLES.ADMIN] },
-      { to: "/resources", label: "Resources", icon: DoorOpen, roles: [ROLES.COORDINATOR, ROLES.ADMIN] },
+      { to: "/sections", label: "Sections & Sub-Batches", icon: Layers, roles: [ROLES.COORDINATOR] },
+      { to: "/faculty", label: "Faculty", icon: Users, roles: [ROLES.COORDINATOR] },
+      { to: "/courses", label: "Courses", icon: BookOpen, roles: [ROLES.COORDINATOR] },
+      { to: "/resources", label: "Resources", icon: DoorOpen, roles: [ROLES.COORDINATOR] },
       { to: "/constraints", label: "Constraints & Breaks", icon: SlidersHorizontal, roles: [ROLES.COORDINATOR] },
     ],
   },
